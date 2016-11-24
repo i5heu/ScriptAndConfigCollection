@@ -1,10 +1,39 @@
 #!/bin/sh
-read -p "H1 press [1] Dev.Server [2] django admin PW [1337]Install `echo '\n> '`" choice
+#Curent DIR
+CurentDir=${PWD##*/}  
+DATE=`date +%Y-%m-%d-%H-%M-%S-YMDHMS`
+
+
+read -p "H1 press [1] Dev.Server [2] django admin PW [3]make BackUp  [1337]Install `echo '\n> '`" choice
 
 if [ $choice -eq "1" ]; then
   python manage.py runserver 0.0.0.0:8000
+#############################################################################
 elif [ $choice -eq "2" ]; then
   exec python manage.py createsuperuser
+#############################################################################
+elif [ $choice -eq "3" ]; then
+  if [ -d ~/CodeBackup ]; then
+    FILENAME="${DATE}-${CurentDir}"
+    echo "BackUp saved in:"
+    echo ${FILENAME}
+    exec tar -zcvf ~/CodeBackup/${FILENAME}.tar.gz ./
+  else
+    echo "DIR ~/CodeBackup dose not exist - create? 23 for YES >"
+    read dirchoice
+    if [ $dirchoice -eq "23" ]; then
+      exec mkdir ~/CodeBackup
+      echo "OK!"
+    else
+      echo "EXIT!!!!"
+      exit
+    fi
+  fi
+
+
+
+
+###############################################################################
 elif [ $choice -eq "1337" ]; then
   read -p "For installing nginx/apache2 on port 84 / mysql-server / phpmyadmin / htop / python-pip python-mysqldb and dajngo ---> enter 42: `echo '\n> '`" choice2
   if [ $choice2 -eq "42" ]; then
