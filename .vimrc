@@ -195,7 +195,7 @@ highlight CursorLine guibg=#303000 ctermbg=234
 augroup VCenterCursor
   au!
   au BufEnter,WinEnter,WinNew,VimResized *,*.*
-        \ let &scrolloff=winheight(win_getid())/2
+        \ let &scrolloff=winheight(win_getid())/3
 augroup END
 
 
